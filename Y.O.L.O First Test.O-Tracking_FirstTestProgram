@@ -1,0 +1,33 @@
+from ultralytics import YOLO
+import cv2  # Import OpenCV for webcam input
+
+model = YOLO('yolov8n.pt')
+
+cap = cv2.VideoCapture(0)  # open the webcam
+
+while True:
+    ret, frame = cap.read()  # read a frame from the webcam
+    if not ret:
+        break
+
+    results = model(frame)  # perform object detection on the frame
+
+    labels = results[0].plot()  # get the labels for detected objects
+
+    for result in results:
+        boxes = result.boxes.xyxy  # get bounding box coordinates
+        for box in boxes:
+            x1, y1, x2, y2 = map(int, box)  # convert to integers
+            cv2.rectangle(frame, (x1, y1), (x2, y2), (0, 255, 0), 2)  # draw bounding box
+            center_x = (x1 + x2) // 2  # Calculate the center x-coordinate of the bounding box
+            center_y = (y1 + y2) // 2  # Calculate the center y-coordinate of the bounding box
+            cv2.circle(frame, (center_x, center_y), 5, (0, 255, 255), -1)  # draw a circle at the center of the box
+
+    cv2.imshow('Webcam w/ CV2 boxes', frame)      # display the bounding box
+    cv2.imshow('Direct Detection Output', labels)  # display the frame with direct detection output
+
+    if cv2.waitKey(1) & 0xFF == ord('q'):  # exit on 'q' key press
+        break
+
+cap.release()               # release the webcam
+cv2.destroyAllWindows()     # close all OpenCV windows

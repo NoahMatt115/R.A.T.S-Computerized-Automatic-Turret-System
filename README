@@ -1,0 +1,9 @@
+How to install all the packages necessary for this code? 
+
+Instead of running pip install [package name] for every single package necessary for this program(s):
+    -  You can just run pip install -r requirements.txt
+
+Doing so will go through, and install every single package that has been installed in this project --If you don't have the straight up .venv file that I used,
+If any packages are added make sure to run: pip freeze > requirements.txt --> This will update the requirements.txt file to include all the new packages as well. 
+
+Also, make sure you're using python 3.11; and it's good practice to keep everything in a VsCode virtual environment, or whatever your equivalent is in your python IDE; to avoid version conflicts between this and other projects and package dependencies. 
