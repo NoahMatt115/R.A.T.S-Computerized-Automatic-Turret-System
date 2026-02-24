@@ -16,9 +16,10 @@ while True:
     x_angle = 50
     y_angle = 34
     distance = 65
+    target_detected = True
 
     # Send all 3 values in one line
-    sent_values = f"{x_angle},{y_angle},{distance}\n"
+    sent_values = f"{x_angle},{y_angle},{distance},{target_detected}\n"
     message = sent_values.encode()
     ser.write(message)
     
